@@ -13,6 +13,11 @@ public enum Lang {
 
     private final String text;
 
+    /**
+     * Getter to get the text.
+     *
+     * @return The choosen text
+     */
     public String getText() {
         return this.text;
     }

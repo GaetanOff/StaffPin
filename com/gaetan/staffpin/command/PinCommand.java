@@ -11,21 +11,24 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public final class PinCommand {
+    /**
+     * Reference to the main class
+     */
     private final StaffPlugin staffPlugin;
 
     /**
      * Constructor for the PinCommand class.
      *
-     * @param staffPlugin reference to the main class
+     * @param staffPlugin Reference to the main class
      */
     public PinCommand(final StaffPlugin staffPlugin) {
         this.staffPlugin = staffPlugin;
     }
 
     /**
-     * Show the global usage message.
+     * Command to show the usage message.
      *
-     * @param context command argument
+     * @param context The command argument
      */
     @Command(name = "pin", permission = "pin.use", target = CommandTarget.PLAYER)
     public void handleCommand(final Context<ConsoleCommandSender> context) {
@@ -33,9 +36,9 @@ public final class PinCommand {
     }
 
     /**
-     * Set your pin.
+     * Command to set your pin.
      *
-     * @param context command argument
+     * @param context The command argument
      */
     @Command(name = "pin.set", permission = "pin.use", target = CommandTarget.PLAYER)
     public void handleCommand_Set(final Context<ConsoleCommandSender> context, final String pin) {
@@ -47,9 +50,9 @@ public final class PinCommand {
     }
 
     /**
-     * Send the help message.
+     * Method to send the help message.
      *
-     * @param player player to send the help message
+     * @param player The player to send the message
      */
     private void usage(final Player player) {
         Message.tell(player, new String[]{

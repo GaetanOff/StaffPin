@@ -7,12 +7,15 @@ import com.gaetan.staffpin.enums.Lang;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public final class MoveRunnable extends BukkitRunnable {
+    /**
+     * Reference to the main class
+     */
     private final StaffPlugin staffPlugin;
 
     /**
      * Constructor for the MoveRunnable runnable.
      *
-     * @param staffPlugin refeference to the main class
+     * @param staffPlugin Reference to the main class
      */
     public MoveRunnable(final StaffPlugin staffPlugin) {
         this.staffPlugin = staffPlugin;

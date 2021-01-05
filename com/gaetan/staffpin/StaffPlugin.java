@@ -11,10 +11,14 @@ import org.bukkit.entity.Player;
 import java.util.Map;
 
 public final class StaffPlugin extends GCore {
+    /**
+     * Map to stock the PayerData
+     */
     private final Map<Player, PlayerData> players = Maps.newConcurrentMap();
 
     /**
-     * Same as the classic onEnable.
+     * Method to launch the plugin
+     * Note: This is the same as the classic onEnable
      */
     @Override
     protected void onPluginStart() {
@@ -22,7 +26,7 @@ public final class StaffPlugin extends GCore {
     }
 
     /**
-     * This is trigger when the server finished loading.
+     * This is trigger when the server finished loading
      */
     @Override
     protected void onPluginLoad() {
@@ -32,7 +36,7 @@ public final class StaffPlugin extends GCore {
     }
 
     /**
-     * Register listener.
+     * Method to register listener
      */
     @Override
     protected void registerListener() {
@@ -41,16 +45,19 @@ public final class StaffPlugin extends GCore {
     }
 
     /**
-     * Get a PlayerData of a Player.
+     * Getter to get the PlayerData of a specific player.
      *
      * @param player player
+     * @return The PlayerData of the choosen player
      */
     public PlayerData getPlayer(final Player player) {
         return this.players.get(player);
     }
 
     /**
-     * Getter for the PlayerData.
+     * Getter to get the Map of all PlayerData.
+     *
+     * @return The PlayerData of the choosen player
      */
     public Map<Player, PlayerData> getPlayers() {
         return this.players;

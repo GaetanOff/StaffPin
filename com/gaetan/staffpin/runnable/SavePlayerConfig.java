@@ -5,14 +5,21 @@ import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.data.PlayerData;
 
 public final class SavePlayerConfig implements Runnable {
+    /**
+     * Reference to the main class
+     */
     private final StaffPlugin staffPlugin;
+
+    /**
+     * Reference to the PlayerData
+     */
     private final PlayerData playerData;
 
     /**
      * Constructor for the SavePlayerConfig runnable.
      *
-     * @param staffPlugin refeference to the main class
-     * @param playerData  the reference of the data
+     * @param staffPlugin Reference to the main class
+     * @param playerData  Reference to the PlayerData
      */
     public SavePlayerConfig(final StaffPlugin staffPlugin, final PlayerData playerData) {
         this.staffPlugin = staffPlugin;

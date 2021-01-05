@@ -10,14 +10,21 @@ import com.gaetan.staffpin.enums.Lang;
 import java.io.File;
 
 public final class LoadPlayerConfig implements Runnable {
+    /**
+     * Reference to the main class
+     */
     private final StaffPlugin staffPlugin;
+
+    /**
+     * Reference to the PlayerData
+     */
     private final PlayerData playerData;
 
     /**
      * Constructor for the LoadPlayerConfig runnable.
      *
-     * @param staffPlugin refeference to the main class
-     * @param playerData  the reference of the data
+     * @param staffPlugin Reference to the main class
+     * @param playerData  Reference to the PlayerData
      */
     public LoadPlayerConfig(final StaffPlugin staffPlugin, final PlayerData playerData) {
         this.staffPlugin = staffPlugin;
@@ -29,7 +36,7 @@ public final class LoadPlayerConfig implements Runnable {
         if (new File(this.staffPlugin.getDataFolder() + "/players", this.playerData.getPlayer().getUniqueId().toString() + ".yml").exists()) {
             final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString());
             this.playerData.setPin(config.getConfig().get("pin.string").toString());
-            
+
             TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.ENTER_PING.getText()));
         } else {
             this.playerData.setLogin(true);

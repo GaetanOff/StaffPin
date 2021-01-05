@@ -24,8 +24,8 @@ public final class PlayerData {
     /**
      * Constructor for the PlayerData class.
      *
-     * @param player      the object of this player
-     * @param staffPlugin refeference to the main class
+     * @param player      The data of this player
+     * @param staffPlugin Reference to the main class
      */
     public PlayerData(final Player player, final StaffPlugin staffPlugin) {
         this.staffPlugin = staffPlugin;
@@ -34,21 +34,21 @@ public final class PlayerData {
     }
 
     /**
-     * Save the pin in a config.
+     * Method to save the pin in a config
      */
     private void save() {
         this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
     }
 
     /**
-     * Load the pin from the config.
+     * Method to load the pin from the config and cache-it
      */
     public void load() {
         this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this));
     }
 
     /**
-     * When player join the server.
+     * Method when player join the server
      */
     public void join() {
         this.load();
@@ -70,7 +70,7 @@ public final class PlayerData {
     }
 
     /**
-     * When player enter the correct code in the chat.
+     * Method when player enter the correct code in the chat
      */
     public void correct() {
         Message.tell(this.player, Lang.ENTER_SUCESS.getText());
@@ -86,7 +86,7 @@ public final class PlayerData {
     }
 
     /**
-     * Launch the pin cooldown.
+     * Method to launch the pin cooldown
      */
     private void pinCooldown() {
         TaskUtil.runLater(() -> {
@@ -97,7 +97,7 @@ public final class PlayerData {
     }
 
     /**
-     * When player left the server.
+     * Method when player left the server
      */
     public void leave() {
         if (this.inventory != null) {
@@ -109,16 +109,16 @@ public final class PlayerData {
     }
 
     /**
-     * Clear player inventory.
+     * Method to clear player inventory
      */
     public void clearInventory() {
         PlayerUtil.clearInventory(this.player);
     }
 
     /**
-     * Set the pin and save it.
+     * Setter to set the pin and save it.
      *
-     * @param pin the pin of the player
+     * @param pin The new pin
      */
     public void setPin(final String pin) {
         this.pin = pin;
@@ -127,66 +127,80 @@ public final class PlayerData {
 
     /**
      * Get the reference for the Player of this data.
+     *
+     * @return The reference for the Player
      */
     public Player getPlayer() {
         return this.player;
     }
 
     /**
-     * Get the pin.
+     * Getter to get the pin.
+     *
+     * @return The player pin
      */
     public String getPin() {
         return this.pin;
     }
 
     /**
-     * Set the player login.
+     * Setter to set if player is login or not.
      *
-     * @param login state of his login
+     * @param login The state of his login
      */
     public void setLogin(final boolean login) {
         this.login = login;
     }
 
     /**
-     * Get if the player is login.
+     * Getter to get if the player is login.
+     *
+     * @return If the player is login
      */
     public boolean isLogin() {
         return this.login;
     }
 
     /**
-     * Set the player last inventory.
+     * Setter to set the last player inventory.
      *
-     * @param inventory last inventory
+     * @param inventory The last player inventory
      */
     public void setInventory(final ItemStack[] inventory) {
         this.inventory = inventory;
     }
 
     /**
-     * Get the player last inventory.
+     * Getter to get the last player inventory.
+     *
+     * @return The last player inventory
      */
     public ItemStack[] getInventory() {
         return this.inventory;
     }
 
     /**
-     * Get the player last armor.
+     * Getter to get the last player armor.
+     *
+     * @return The last player armor
      */
     public ItemStack[] getArmor() {
         return this.armor;
     }
 
     /**
-     * Get the player last location.
+     * Getter to get the last player location.
+     *
+     * @return The last player location
      */
     public Location getLocation() {
         return this.location;
     }
 
     /**
-     * Get the player last gamemode.
+     * Getter to get the last player gamemode.
+     *
+     * @return The last player gamemode
      */
     public GameMode getGameMode() {
         return this.gameMode;

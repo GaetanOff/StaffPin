@@ -15,12 +15,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public final class PlayerListener implements Listener {
+    /**
+     * Reference to the main class
+     */
     private final StaffPlugin staffPlugin;
 
     /**
      * Constructor for the PlayerListener class.
      *
-     * @param staffPlugin reference to te main class
+     * @param staffPlugin Reference to te main class
      */
     public PlayerListener(final StaffPlugin staffPlugin) {
         this.staffPlugin = staffPlugin;
