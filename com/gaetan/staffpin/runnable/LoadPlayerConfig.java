@@ -29,13 +29,11 @@ public final class LoadPlayerConfig implements Runnable {
         if (new File(this.staffPlugin.getDataFolder() + "/players", this.playerData.getPlayer().getUniqueId().toString() + ".yml").exists()) {
             final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString());
             this.playerData.setPin(config.getConfig().get("pin.string").toString());
-
-            if (this.playerData.getPin() == null) {
-                this.playerData.setLogin(true);
-                TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.NO_PIN.getText()));
-            } else {
-                TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.ENTER_PING.getText()));
-            }
+            
+            TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.ENTER_PING.getText()));
+        } else {
+            this.playerData.setLogin(true);
+            TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.NO_PIN.getText()));
         }
     }
 }

@@ -12,4 +12,4 @@ Commandes
 | Commandes                       | Description                                                  | Permission                                                                                                      |
 |---------------------------------|:-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | `/pin`                          | Voir les commandes du plugin.                                 | `pin.use`
-| `/pin set <string>`             | Changer votre code pin.                                       | `pin.use`                                                  
+| `/pin set <string>`             | Changer votre code pin.                                       | `pin.use`
