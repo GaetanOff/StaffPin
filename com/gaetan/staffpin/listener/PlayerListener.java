@@ -43,7 +43,7 @@ public final class PlayerListener implements Listener {
     public void onQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.hasPermission("pin.use"))
+        if (player.hasPermission("pin.use") && this.staffPlugin.getPlayers().containsKey(player))
             this.staffPlugin.getPlayers().remove(player).leave();
     }
 
@@ -54,7 +54,7 @@ public final class PlayerListener implements Listener {
         if (player.hasPermission("pin.use")) {
             final PlayerData playerData = this.staffPlugin.getPlayer(player);
 
-            if (!playerData.isLogin()) {
+            if (this.staffPlugin.getPlayers().containsKey(player) && !playerData.isLogin()) {
                 event.setCancelled(true);
 
                 if (event.getMessage().equals(playerData.getPin())) {
@@ -72,7 +72,7 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
 
         if (player.hasPermission("pin.use")) {
-            if (!this.staffPlugin.getPlayer(player).isLogin()) {
+            if (this.staffPlugin.getPlayers().containsKey(player) && this.staffPlugin.getPlayer(player).isLogin()) {
                 Message.tell(player, Lang.ENTER_PING.getText());
                 event.setCancelled(true);
             }
