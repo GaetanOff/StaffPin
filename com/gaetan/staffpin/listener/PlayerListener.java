@@ -72,7 +72,7 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
 
         if (player.hasPermission("pin.use")) {
-            if (this.staffPlugin.getPlayers().containsKey(player) && this.staffPlugin.getPlayer(player).isLogin()) {
+            if (this.staffPlugin.getPlayers().containsKey(player) && !this.staffPlugin.getPlayer(player).isLogin()) {
                 Message.tell(player, Lang.ENTER_PING.getText());
                 event.setCancelled(true);
             }
