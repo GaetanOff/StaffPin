@@ -41,7 +41,7 @@ public final class PlayerListener implements Listener {
     public void onJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.hasPermission("pin.use")) {
+        if (player.hasPermission(this.configManager.getPinPermission())) {
             final PlayerData playerData = new PlayerData(player, this.staffPlugin, this.configManager);
             this.staffPlugin.getPlayers().put(player, playerData);
 
@@ -53,7 +53,7 @@ public final class PlayerListener implements Listener {
     public void onQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.hasPermission("pin.use") && this.staffPlugin.getPlayers().containsKey(player))
+        if (player.hasPermission(this.configManager.getPinPermission()) && this.staffPlugin.getPlayers().containsKey(player))
             this.staffPlugin.getPlayers().remove(player).leave();
     }
 
@@ -61,7 +61,7 @@ public final class PlayerListener implements Listener {
     public void onChat(final AsyncPlayerChatEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.hasPermission("pin.use")) {
+        if (player.hasPermission(this.configManager.getPinPermission())) {
             final PlayerData playerData = this.staffPlugin.getPlayer(player);
 
             if (this.staffPlugin.getPlayers().containsKey(player) && !playerData.isLogin()) {
@@ -81,7 +81,7 @@ public final class PlayerListener implements Listener {
     public void onCommand(final PlayerCommandPreprocessEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.hasPermission("pin.use")) {
+        if (player.hasPermission(this.configManager.getPinPermission())) {
             if (this.staffPlugin.getPlayers().containsKey(player) && !this.staffPlugin.getPlayer(player).isLogin()) {
                 Message.tell(player, this.configManager.getEnterPin());
                 event.setCancelled(true);
