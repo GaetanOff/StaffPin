@@ -1,0 +1,13 @@
+lang:
+  prefix: "&c&lStaffPin &7• "
+  enter_ping: "&aVeuillez entrer votre code pin dans le chat pour pouvoir acceder au serveur."
+  time_finish: "&cVous avez pris trop de temps à rentrer votre code pin."
+  cant_reload: "Merci de ne pas reload avec StafPin."
+  pin:
+    correct: "&aCode correct, vous pouvez maintenant jouer."
+    incorrect: "&cCode incorrect."
+    dont_have: "&cVous n'avez pas de pin, cela peut-être dangereux ! N'oubliez pas d'en mettre un avec /pin set"
+    set: "&aVotre pin vient d'être mis à jour."
+
+permission:
+  pin: "pin.use"

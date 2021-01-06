@@ -1,11 +1,14 @@
 package com.gaetan.staffpin;
 
+import com.gaetan.api.message.Message;
 import com.gaetan.api.plugin.GCore;
 import com.gaetan.staffpin.command.PinCommand;
+import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.data.PlayerData;
 import com.gaetan.staffpin.listener.PlayerListener;
 import com.gaetan.staffpin.runnable.MoveRunnable;
 import com.google.common.collect.Maps;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -17,12 +20,19 @@ public final class StaffPlugin extends GCore {
     private final Map<Player, PlayerData> players = Maps.newConcurrentMap();
 
     /**
+     * Reference to the ConfigManager
+     */
+    private ConfigManager configManager;
+
+    /**
      * Method to launch the plugin
      * Note: This is the same as the classic onEnable
      */
     @Override
     protected void onPluginStart() {
-        this.registerCommands(new PinCommand(this));
+        this.saveDefaultConfig();
+        this.configManager = new ConfigManager(this);
+        this.registerCommands(new PinCommand(this, this.configManager));
     }
 
     /**
@@ -30,9 +40,11 @@ public final class StaffPlugin extends GCore {
      */
     @Override
     protected void onPluginLoad() {
+        final FileConfiguration config = this.getConfig();
+
         this.getServer().getOnlinePlayers().stream()
-                .filter(player -> player.hasPermission("pin.use"))
-                .forEach(player -> player.kickPlayer("Merci de ne pas reload avec StafPin."));
+                .filter(player -> player.hasPermission(config.getString("permission.pin")))
+                .forEach(player -> player.kickPlayer(Message.tl(config.getString("lang.cant_reload"))));
     }
 
     /**
@@ -40,8 +52,8 @@ public final class StaffPlugin extends GCore {
      */
     @Override
     protected void registerListener() {
-        new PlayerListener(this);
-        new MoveRunnable(this);
+        new PlayerListener(this, this.configManager);
+        new MoveRunnable(this, this.configManager);
     }
 
     /**

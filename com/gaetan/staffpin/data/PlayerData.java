@@ -4,7 +4,7 @@ import com.gaetan.api.PlayerUtil;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
-import com.gaetan.staffpin.enums.Lang;
+import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.runnable.LoadPlayerConfig;
 import com.gaetan.staffpin.runnable.SavePlayerConfig;
 import org.bukkit.GameMode;
@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 public final class PlayerData {
     private final StaffPlugin staffPlugin;
+    private final ConfigManager configManager;
     private final Player player;
     private String pin;
     private boolean login;
@@ -24,11 +25,13 @@ public final class PlayerData {
     /**
      * Constructor for the PlayerData class.
      *
-     * @param player      The data of this player
-     * @param staffPlugin Reference to the main class
+     * @param player        The data of this player
+     * @param staffPlugin   Reference to the main class
+     * @param configManager Reference to the ConfigManager class
      */
-    public PlayerData(final Player player, final StaffPlugin staffPlugin) {
+    public PlayerData(final Player player, final StaffPlugin staffPlugin, final ConfigManager configManager) {
         this.staffPlugin = staffPlugin;
+        this.configManager = configManager;
         this.player = player;
         this.pin = null;
     }
@@ -44,7 +47,7 @@ public final class PlayerData {
      * Method to load the pin from the config and cache-it
      */
     public void load() {
-        this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this));
+        this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
     }
 
     /**
@@ -73,7 +76,7 @@ public final class PlayerData {
      * Method when player enter the correct code in the chat
      */
     public void correct() {
-        Message.tell(this.player, Lang.ENTER_SUCESS.getText());
+        Message.tell(this.player, this.configManager.getCorrectPin());
 
         this.setLogin(true);
         this.clearInventory();
@@ -91,7 +94,7 @@ public final class PlayerData {
     private void pinCooldown() {
         TaskUtil.runLater(() -> {
             if (!this.isLogin())
-                this.player.kickPlayer(Lang.TIME_EXCED.getText());
+                this.player.kickPlayer(this.configManager.getTimeFinish());
 
         }, 400L);
     }

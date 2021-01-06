@@ -5,8 +5,8 @@ import com.gaetan.api.command.utils.command.Context;
 import com.gaetan.api.command.utils.target.CommandTarget;
 import com.gaetan.api.message.Message;
 import com.gaetan.staffpin.StaffPlugin;
+import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.data.PlayerData;
-import com.gaetan.staffpin.enums.Lang;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
@@ -17,12 +17,19 @@ public final class PinCommand {
     private final StaffPlugin staffPlugin;
 
     /**
+     * Reference to the ConfigManager
+     */
+    private final ConfigManager configManager;
+
+    /**
      * Constructor for the PinCommand class.
      *
-     * @param staffPlugin Reference to the main class
+     * @param staffPlugin   Reference to the main class
+     * @param configManager Reference to the ConfigManager class
      */
-    public PinCommand(final StaffPlugin staffPlugin) {
+    public PinCommand(final StaffPlugin staffPlugin, final ConfigManager configManager) {
         this.staffPlugin = staffPlugin;
+        this.configManager = configManager;
     }
 
     /**
@@ -30,9 +37,12 @@ public final class PinCommand {
      *
      * @param context The command argument
      */
-    @Command(name = "pin", permission = "pin.use", target = CommandTarget.PLAYER)
+    @Command(name = "pin", target = CommandTarget.PLAYER)
     public void handleCommand(final Context<ConsoleCommandSender> context) {
-        this.usage((Player) context.getSender());
+        final Player player = (Player) context.getSender();
+
+        if (player.hasPermission(this.configManager.getPinPermission()))
+            this.usage(player);
     }
 
     /**
@@ -40,13 +50,16 @@ public final class PinCommand {
      *
      * @param context The command argument
      */
-    @Command(name = "pin.set", permission = "pin.use", target = CommandTarget.PLAYER)
+    @Command(name = "pin.set", target = CommandTarget.PLAYER)
     public void handleCommand_Set(final Context<ConsoleCommandSender> context, final String pin) {
         final Player player = (Player) context.getSender();
-        final PlayerData playerData = this.staffPlugin.getPlayer(player);
 
-        playerData.setPin(pin);
-        Message.tell(player, Lang.PIN_SET.getText());
+        if (player.hasPermission(this.configManager.getPinPermission())) {
+            final PlayerData playerData = this.staffPlugin.getPlayer(player);
+
+            playerData.setPin(pin);
+            Message.tell(player, this.configManager.getPinSet());
+        }
     }
 
     /**

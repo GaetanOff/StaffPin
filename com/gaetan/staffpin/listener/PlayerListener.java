@@ -3,8 +3,8 @@ package com.gaetan.staffpin.listener;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
+import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.data.PlayerData;
-import com.gaetan.staffpin.enums.Lang;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,12 +21,19 @@ public final class PlayerListener implements Listener {
     private final StaffPlugin staffPlugin;
 
     /**
+     * Reference to the ConfigManager
+     */
+    private final ConfigManager configManager;
+
+    /**
      * Constructor for the PlayerListener class.
      *
-     * @param staffPlugin Reference to te main class
+     * @param staffPlugin   Reference to te main class
+     * @param configManager Reference to the ConfigManager class
      */
-    public PlayerListener(final StaffPlugin staffPlugin) {
+    public PlayerListener(final StaffPlugin staffPlugin, final ConfigManager configManager) {
         this.staffPlugin = staffPlugin;
+        this.configManager = configManager;
         this.staffPlugin.getServer().getPluginManager().registerEvents(this, this.staffPlugin);
     }
 
@@ -35,7 +42,7 @@ public final class PlayerListener implements Listener {
         final Player player = event.getPlayer();
 
         if (player.hasPermission("pin.use")) {
-            final PlayerData playerData = new PlayerData(player, this.staffPlugin);
+            final PlayerData playerData = new PlayerData(player, this.staffPlugin, this.configManager);
             this.staffPlugin.getPlayers().put(player, playerData);
 
             playerData.join();
@@ -65,7 +72,7 @@ public final class PlayerListener implements Listener {
                     return;
                 }
 
-                TaskUtil.run((() -> player.kickPlayer(Lang.ENTER_FAILED.getText())));
+                TaskUtil.run((() -> player.kickPlayer(this.configManager.getIncorrectPin())));
             }
         }
     }
@@ -76,7 +83,7 @@ public final class PlayerListener implements Listener {
 
         if (player.hasPermission("pin.use")) {
             if (this.staffPlugin.getPlayers().containsKey(player) && !this.staffPlugin.getPlayer(player).isLogin()) {
-                Message.tell(player, Lang.ENTER_PING.getText());
+                Message.tell(player, this.configManager.getEnterPin());
                 event.setCancelled(true);
             }
         }

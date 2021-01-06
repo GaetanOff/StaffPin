@@ -4,8 +4,8 @@ import com.gaetan.api.ConfigUtil;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
+import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.data.PlayerData;
-import com.gaetan.staffpin.enums.Lang;
 
 import java.io.File;
 
@@ -16,6 +16,11 @@ public final class LoadPlayerConfig implements Runnable {
     private final StaffPlugin staffPlugin;
 
     /**
+     * Reference to the ConfigManager
+     */
+    private final ConfigManager configManager;
+
+    /**
      * Reference to the PlayerData
      */
     private final PlayerData playerData;
@@ -23,24 +28,27 @@ public final class LoadPlayerConfig implements Runnable {
     /**
      * Constructor for the LoadPlayerConfig runnable.
      *
-     * @param staffPlugin Reference to the main class
-     * @param playerData  Reference to the PlayerData
+     * @param staffPlugin   Reference to the main class
+     * @param playerData    Reference to the PlayerData
+     * @param configManager Reference to the ConfigManager class
      */
-    public LoadPlayerConfig(final StaffPlugin staffPlugin, final PlayerData playerData) {
+    public LoadPlayerConfig(final StaffPlugin staffPlugin, final PlayerData playerData, final ConfigManager configManager) {
         this.staffPlugin = staffPlugin;
         this.playerData = playerData;
+        this.configManager = configManager;
     }
 
     @Override
     public void run() {
+
         if (new File(this.staffPlugin.getDataFolder() + "/players", this.playerData.getPlayer().getUniqueId().toString() + ".yml").exists()) {
             final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString());
             this.playerData.setPin(config.getConfig().get("pin.string").toString());
 
-            TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.ENTER_PING.getText()));
+            TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), this.configManager.getEnterPin()));
         } else {
             this.playerData.setLogin(true);
-            TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), Lang.NO_PIN.getText()));
+            TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), this.configManager.getNoPin()));
         }
     }
 }
