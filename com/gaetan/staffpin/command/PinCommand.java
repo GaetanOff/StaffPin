@@ -6,7 +6,6 @@ import com.gaetan.api.command.utils.target.CommandTarget;
 import com.gaetan.api.message.Message;
 import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.config.ConfigManager;
-import com.gaetan.staffpin.data.PlayerData;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
@@ -55,9 +54,7 @@ public final class PinCommand {
         final Player player = (Player) context.getSender();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
-            final PlayerData playerData = this.staffPlugin.getPlayer(player);
-
-            playerData.setPin(pin);
+            this.staffPlugin.getPlayer(player).setPin(pin);
             Message.tell(player, this.configManager.getPinSet());
         }
     }
