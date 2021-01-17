@@ -68,7 +68,7 @@ public final class PlayerListener implements Listener {
                 event.setCancelled(true);
 
                 if (event.getMessage().equals(playerData.getPin())) {
-                    playerData.correct();
+                    TaskUtil.run(playerData::correct);
                     return;
                 }
 

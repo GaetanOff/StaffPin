@@ -84,7 +84,7 @@ public final class PlayerData {
         this.player.getInventory().setArmorContents(this.getArmor());
         this.player.updateInventory();
         this.player.teleport(this.getLocation());
-        TaskUtil.run((() -> this.player.setGameMode(this.getGameMode())));
+        this.player.setGameMode(this.getGameMode());
         this.setInventory(null);
     }
 
