@@ -26,6 +26,10 @@ public final class SavePlayerConfig implements Runnable {
         this.playerData = playerData;
     }
 
+    /**
+     * Saving the playerdata to a config
+     * Note: This must be executed in async
+     */
     @Override
     public void run() {
         if (this.playerData.getPin() != null) {

@@ -37,6 +37,7 @@ public final class StaffPlugin extends GCore {
 
     /**
      * This is trigger when the server finished loading
+     * Note: This is the same as the classic onLoad
      */
     @Override
     protected void onPluginLoad() {
@@ -49,6 +50,7 @@ public final class StaffPlugin extends GCore {
 
     /**
      * Method to register listener
+     * Note: This will be trigger after the loading of the server
      */
     @Override
     protected void registerListener() {
@@ -59,7 +61,7 @@ public final class StaffPlugin extends GCore {
     /**
      * Getter to get the PlayerData of a specific player.
      *
-     * @param player player
+     * @param player player The choosen player
      * @return The PlayerData of the choosen player
      */
     public PlayerData getPlayer(final Player player) {
@@ -69,7 +71,7 @@ public final class StaffPlugin extends GCore {
     /**
      * Getter to get the Map of all PlayerData.
      *
-     * @return The PlayerData of the choosen player
+     * @return The map
      */
     public Map<Player, PlayerData> getPlayers() {
         return this.players;

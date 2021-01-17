@@ -38,6 +38,10 @@ public final class LoadPlayerConfig implements Runnable {
         this.configManager = configManager;
     }
 
+    /**
+     * Loading the playerdata from a config
+     * Note: This must be executed in async
+     */
     @Override
     public void run() {
 

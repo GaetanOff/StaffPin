@@ -30,6 +30,10 @@ public final class MoveRunnable extends BukkitRunnable {
         this.runTaskTimer(this.staffPlugin, 0L, 40L);
     }
 
+    /**
+     * Teleport player to the waiting pin location
+     * Note: This will be executed every 2 seconds
+     */
     @Override
     public void run() {
         this.staffPlugin.getPlayers().keySet().forEach(player -> {

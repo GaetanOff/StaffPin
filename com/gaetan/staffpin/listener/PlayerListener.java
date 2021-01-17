@@ -37,6 +37,9 @@ public final class PlayerListener implements Listener {
         this.staffPlugin.getServer().getPluginManager().registerEvents(this, this.staffPlugin);
     }
 
+    /**
+     * When a player with the pin permission join the server
+     */
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
@@ -49,6 +52,9 @@ public final class PlayerListener implements Listener {
         }
     }
 
+    /**
+     * When a player with the pin permission left the server
+     */
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
@@ -57,6 +63,10 @@ public final class PlayerListener implements Listener {
             this.staffPlugin.getPlayers().remove(player).leave();
     }
 
+    /**
+     * When a player with the pin permission talk in the chat
+     * Note: This is executed async so I have to resync it
+     */
     @EventHandler
     public void onChat(final AsyncPlayerChatEvent event) {
         final Player player = event.getPlayer();
@@ -77,6 +87,9 @@ public final class PlayerListener implements Listener {
         }
     }
 
+    /**
+     * When a player with the pin permission do command in the chat
+     */
     @EventHandler
     public void onCommand(final PlayerCommandPreprocessEvent event) {
         final Player player = event.getPlayer();
