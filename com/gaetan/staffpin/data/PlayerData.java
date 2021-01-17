@@ -13,13 +13,44 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public final class PlayerData {
+    /**
+     * Reference to the main class
+     */
     private final StaffPlugin staffPlugin;
+
+    /**
+     * Reference to the ConfigManager
+     */
     private final ConfigManager configManager;
+
+    /**
+     * Reference to the Player
+     */
     private final Player player;
+
+    /**
+     * The pin of the Player
+     */
     private String pin;
+
+    /**
+     * Status of the login Player
+     */
     private boolean login;
+
+    /**
+     * Last inventory of the Player
+     */
     private ItemStack[] inventory, armor;
+
+    /**
+     * Last location of the Player
+     */
     private Location location;
+
+    /**
+     * Last gamemode of the Player
+     */
     private GameMode gameMode;
 
     /**
@@ -38,6 +69,7 @@ public final class PlayerData {
 
     /**
      * Method to save the pin in a config
+     * Note: This is executed in async
      */
     private void save() {
         this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
@@ -45,6 +77,7 @@ public final class PlayerData {
 
     /**
      * Method to load the pin from the config and cache-it
+     * Note: This is executed in async
      */
     public void load() {
         this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
@@ -90,6 +123,7 @@ public final class PlayerData {
 
     /**
      * Method to launch the pin cooldown
+     * Note: The player have 20 seconds to enter the pin
      */
     private void pinCooldown() {
         TaskUtil.runLater(() -> {
@@ -113,6 +147,7 @@ public final class PlayerData {
 
     /**
      * Method to clear player inventory
+     * Note: This method is from my framework
      */
     public void clearInventory() {
         PlayerUtil.clearInventory(this.player);
