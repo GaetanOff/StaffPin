@@ -65,7 +65,7 @@ public final class PlayerListener implements Listener {
 
     /**
      * When a player with the pin permission talk in the chat
-     * Note: This is executed async so I have to resync it
+     * Note: This is listened async so I have to resync it
      */
     @EventHandler
     public void onChat(final AsyncPlayerChatEvent event) {

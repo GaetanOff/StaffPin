@@ -33,6 +33,7 @@ public final class PinCommand {
 
     /**
      * Command to show the usage message.
+     * Note: This can only be used by a player with the pin permission
      *
      * @param context The command argument
      */
@@ -46,6 +47,7 @@ public final class PinCommand {
 
     /**
      * Command to set your pin.
+     * Note: This can only be used by a player with the pin permission
      *
      * @param context The command argument
      */
