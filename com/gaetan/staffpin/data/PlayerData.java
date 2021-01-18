@@ -182,7 +182,7 @@ public final class PlayerData {
     }
 
     /**
-     * Setter to set if player is login or not.
+     * Setter to set if player is login.
      *
      * @param login The state of his login
      */

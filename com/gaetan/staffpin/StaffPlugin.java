@@ -60,6 +60,7 @@ public final class StaffPlugin extends GCore {
 
     /**
      * Getter to get the PlayerData of a specific player.
+     * Note: The player must have the pin permission.
      *
      * @param player player The choosen player
      * @return The PlayerData of the choosen player
@@ -71,7 +72,7 @@ public final class StaffPlugin extends GCore {
     /**
      * Getter to get the Map of all PlayerData.
      *
-     * @return The map
+     * @return The map containing all the players and PlayerData with the pin permission
      */
     public Map<Player, PlayerData> getPlayers() {
         return this.players;
