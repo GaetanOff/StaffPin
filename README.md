@@ -1,6 +1,6 @@
 StaffPin plugin
 ============
-> StaffPin est un plugin spigot compatible 1.7.x - 1.16.x qui vous permet d'avoir une sécurité pour votre staff.
+> StaffPin est un plugin spigot compatible 1.8.x - 1.16.x qui vous permet d'avoir une sécurité pour votre staff.
 
 Comment ça fonctionne ?
 ============
