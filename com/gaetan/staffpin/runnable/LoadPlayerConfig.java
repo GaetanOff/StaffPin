@@ -39,7 +39,7 @@ public final class LoadPlayerConfig implements Runnable {
     }
 
     /**
-     * Loading the playerdata from a config
+     * Loading the pin from a config
      * Note: This must be executed in async
      */
     @Override

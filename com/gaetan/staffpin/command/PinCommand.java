@@ -56,7 +56,7 @@ public final class PinCommand {
         final Player player = (Player) context.getSender();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
-            this.staffPlugin.getPlayer(player).setPin(pin);
+            this.staffPlugin.getPlayer(player.getUniqueId()).setPin(pin);
             Message.tell(player, this.configManager.getPinSet());
         }
     }

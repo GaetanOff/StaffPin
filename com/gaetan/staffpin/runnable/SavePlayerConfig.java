@@ -27,7 +27,7 @@ public final class SavePlayerConfig implements Runnable {
     }
 
     /**
-     * Saving the playerdata to a config
+     * Saving the pin to a config
      * Note: This must be executed in async
      */
     @Override

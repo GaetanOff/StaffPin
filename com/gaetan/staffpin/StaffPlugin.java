@@ -9,15 +9,15 @@ import com.gaetan.staffpin.listener.PlayerListener;
 import com.gaetan.staffpin.runnable.MoveRunnable;
 import com.google.common.collect.Maps;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 import java.util.Map;
+import java.util.UUID;
 
 public final class StaffPlugin extends GCore {
     /**
      * Map to stock the PayerData
      */
-    private final Map<Player, PlayerData> players = Maps.newConcurrentMap();
+    private final Map<UUID, PlayerData> players = Maps.newConcurrentMap();
 
     /**
      * Reference to the ConfigManager
@@ -59,22 +59,22 @@ public final class StaffPlugin extends GCore {
     }
 
     /**
-     * Getter to get the PlayerData of a specific player.
+     * Getter to get the PlayerData of a specific player with his UUID.
      * Note: The player must have the pin permission.
      *
-     * @param player player The choosen player
-     * @return The PlayerData of the choosen player
+     * @param uuid The choosen UUID
+     * @return The PlayerData of the choosen UUID
      */
-    public PlayerData getPlayer(final Player player) {
-        return this.players.get(player);
+    public PlayerData getPlayer(final UUID uuid) {
+        return this.players.get(uuid);
     }
 
     /**
      * Getter to get the Map of all PlayerData.
      *
-     * @return The map containing all the players and PlayerData with the pin permission
+     * @return The map containing all the UUID and PlayerData with the pin permission
      */
-    public Map<Player, PlayerData> getPlayers() {
+    public Map<UUID, PlayerData> getPlayers() {
         return this.players;
     }
 }

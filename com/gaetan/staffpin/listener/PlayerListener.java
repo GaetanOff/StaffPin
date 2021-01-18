@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.UUID;
+
 public final class PlayerListener implements Listener {
     /**
      * Reference to the main class
@@ -46,7 +48,7 @@ public final class PlayerListener implements Listener {
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
             final PlayerData playerData = new PlayerData(player, this.staffPlugin, this.configManager);
-            this.staffPlugin.getPlayers().put(player, playerData);
+            this.staffPlugin.getPlayers().put(player.getUniqueId(), playerData);
 
             playerData.join();
         }
@@ -57,10 +59,10 @@ public final class PlayerListener implements Listener {
      */
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
-        final Player player = event.getPlayer();
+        final UUID uuid = event.getPlayer().getUniqueId();
 
-        if (player.hasPermission(this.configManager.getPinPermission()) && this.staffPlugin.getPlayers().containsKey(player))
-            this.staffPlugin.getPlayers().remove(player).leave();
+        if (event.getPlayer().hasPermission(this.configManager.getPinPermission()) && this.staffPlugin.getPlayers().containsKey(uuid))
+            this.staffPlugin.getPlayers().remove(uuid).leave();
     }
 
     /**
@@ -70,11 +72,12 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onChat(final AsyncPlayerChatEvent event) {
         final Player player = event.getPlayer();
+        final UUID uuid = event.getPlayer().getUniqueId();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
-            final PlayerData playerData = this.staffPlugin.getPlayer(player);
+            final PlayerData playerData = this.staffPlugin.getPlayer(uuid);
 
-            if (this.staffPlugin.getPlayers().containsKey(player) && !playerData.isLogin()) {
+            if (this.staffPlugin.getPlayers().containsKey(uuid) && !playerData.isLogin()) {
                 event.setCancelled(true);
 
                 if (event.getMessage().equals(playerData.getPin())) {
@@ -93,9 +96,10 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onCommand(final PlayerCommandPreprocessEvent event) {
         final Player player = event.getPlayer();
+        final UUID uuid = event.getPlayer().getUniqueId();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
-            if (this.staffPlugin.getPlayers().containsKey(player) && !this.staffPlugin.getPlayer(player).isLogin()) {
+            if (this.staffPlugin.getPlayers().containsKey(uuid) && !this.staffPlugin.getPlayer(uuid).isLogin()) {
                 Message.tell(player, this.configManager.getEnterPin());
                 event.setCancelled(true);
             }
