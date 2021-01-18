@@ -52,11 +52,16 @@ public final class PinCommand {
      * @param context The command argument
      */
     @Command(name = "pin.set", target = CommandTarget.PLAYER)
-    public void handleCommand_Set(final Context<ConsoleCommandSender> context, final String pin) {
+    public void handleCommand_Set(final Context<ConsoleCommandSender> context) {
         final Player player = (Player) context.getSender();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
-            this.staffPlugin.getPlayer(player.getUniqueId()).setPin(pin);
+            if (context.getArgs().length == 0) {
+                Message.tell(player, this.configManager.getPinUsage());
+                return;
+            }
+        
+            this.staffPlugin.getPlayer(player.getUniqueId()).setPin(context.getArgs()[0]);
             Message.tell(player, this.configManager.getPinSet());
         }
     }

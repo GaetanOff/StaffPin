@@ -14,7 +14,7 @@ public final class ConfigManager {
      * Cache for the config
      */
     private String enterPin, timeFinish,
-            correctPin, incorrectPin, noPin, pinSet, pinPermission;
+            correctPin, incorrectPin, noPin, pinSet, pinPermission, pinUsage;
 
     /**
      * Constructor for the ConfigManager class.
@@ -42,6 +42,7 @@ public final class ConfigManager {
         this.pinSet = prefix + Message.tl(config.getString("lang.pin.set"));
 
         this.pinPermission = config.getString("permission.pin");
+        this.pinUsage = Message.tl(config.getString("lang.pin.usage"));
     }
 
     /**
@@ -105,5 +106,14 @@ public final class ConfigManager {
      */
     public String getPinPermission() {
         return this.pinPermission;
+    }
+
+    /**
+     * Getter to get the pin usage message.
+     *
+     * @return The pin usage message
+     */
+    public String getPinUsage() {
+        return this.pinUsage;
     }
 }
