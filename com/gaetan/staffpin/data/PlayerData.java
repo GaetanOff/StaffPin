@@ -11,6 +11,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public final class PlayerData {
     /**
@@ -96,6 +98,7 @@ public final class PlayerData {
                 this.gameMode = this.player.getGameMode();
                 this.location = this.player.getLocation();
                 this.player.setGameMode(GameMode.SPECTATOR);
+                this.player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 400, 255));
                 this.clearInventory();
                 this.pinCooldown();
                 return;
@@ -118,6 +121,7 @@ public final class PlayerData {
         this.player.updateInventory();
         this.player.teleport(this.getLocation());
         this.player.setGameMode(this.getGameMode());
+        this.player.removePotionEffect(PotionEffectType.BLINDNESS);
         this.setInventory(null);
     }
 
