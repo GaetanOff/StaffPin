@@ -1,4 +1,4 @@
 name: StaffPin
 author: Gaetan_Off
-version: 0.3-SNAPSHOT
+version: 0.4-SNAPSHOT
 main: com.gaetan.staffpin.StaffPlugin
