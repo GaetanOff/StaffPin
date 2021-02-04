@@ -42,7 +42,7 @@ public final class PlayerListener implements Listener {
     /**
      * When a player with the pin permission join the server
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
