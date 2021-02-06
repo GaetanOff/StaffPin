@@ -91,6 +91,12 @@ public final class PlayerData {
     public void join() {
         this.load();
 
+        if (this.configManager.isCacheEnabled() && this.staffPlugin.getCache().containsKey(this.player.getUniqueId()) && this.staffPlugin.getCache().get(this.player.getUniqueId()).equals(this.player.getAddress().getAddress())) {
+            TaskUtil.runLater(() -> Message.tell(this.player, this.configManager.getCacheLogin()), 2L);
+            this.login = true;
+            return;
+        }
+
         TaskUtil.runLater(() -> {
             if (this.pin != null) {
                 this.inventory = this.player.getInventory().getContents();
@@ -123,6 +129,9 @@ public final class PlayerData {
         this.player.setGameMode(this.getGameMode());
         this.player.removePotionEffect(PotionEffectType.BLINDNESS);
         this.setInventory(null);
+
+        if (this.configManager.isCacheEnabled())
+            this.staffPlugin.getCache().put(this.player.getUniqueId(), this.player.getAddress().getAddress());
     }
 
     /**

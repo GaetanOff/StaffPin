@@ -14,7 +14,12 @@ public final class ConfigManager {
      * Cache for the config
      */
     private String enterPin, timeFinish,
-            correctPin, incorrectPin, noPin, pinSet, pinPermission, pinUsage;
+            correctPin, incorrectPin, noPin, pinSet, pinPermission, pinUsage, cacheLogin;
+
+    /**
+     * Cache for the config
+     */
+    private boolean cacheEnabled;
 
     /**
      * Constructor for the ConfigManager class.
@@ -40,6 +45,9 @@ public final class ConfigManager {
         this.incorrectPin = prefix + Message.tl(config.getString("lang.pin.incorrect"));
         this.noPin = prefix + Message.tl(config.getString("lang.pin.dont_have"));
         this.pinSet = prefix + Message.tl(config.getString("lang.pin.set"));
+        this.cacheLogin = prefix + Message.tl(config.getString("lang.cache_login"));
+
+        this.cacheEnabled = config.getBoolean("cache.enabled");
 
         this.pinPermission = config.getString("permission.pin");
         this.pinUsage = Message.tl(config.getString("lang.pin.usage"));
@@ -115,5 +123,23 @@ public final class ConfigManager {
      */
     public String getPinUsage() {
         return this.pinUsage;
+    }
+
+    /**
+     * Getter to get the cache login message.
+     *
+     * @return The cache login message.
+     */
+    public String getCacheLogin() {
+        return this.cacheLogin;
+    }
+
+    /**
+     * Getter to get the cache statut.
+     *
+     * @return The the cache statut.
+     */
+    public boolean isCacheEnabled() {
+        return this.cacheEnabled;
     }
 }

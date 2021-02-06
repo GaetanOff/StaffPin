@@ -10,6 +10,7 @@ import com.gaetan.staffpin.runnable.MoveRunnable;
 import com.google.common.collect.Maps;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.net.InetAddress;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,6 +19,11 @@ public final class StaffPlugin extends GCore {
      * Map to stock the PayerData
      */
     private final Map<UUID, PlayerData> players = Maps.newConcurrentMap();
+
+    /**
+     * Map to cache the ip
+     */
+    private final Map<UUID, InetAddress> cache = Maps.newConcurrentMap();
 
     /**
      * Reference to the ConfigManager
@@ -76,5 +82,14 @@ public final class StaffPlugin extends GCore {
      */
     public Map<UUID, PlayerData> getPlayers() {
         return this.players;
+    }
+
+    /**
+     * Getter to get the Map of all the cache.
+     *
+     * @return The map containing all the cache
+     */
+    public Map<UUID, InetAddress> getCache() {
+        return this.cache;
     }
 }

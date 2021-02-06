@@ -1,8 +1,10 @@
+#Lang message
 lang:
   prefix: "&c&lStaffPin &7• "
   enter_ping: "&aVeuillez entrer votre code pin dans le chat pour pouvoir acceder au serveur."
   time_finish: "&cVous avez pris trop de temps à rentrer votre code pin."
   cant_reload: "Merci de ne pas reload avec StafPin."
+  cache_login: "&aConnecté automatiquement, vous pouvez maintenant jouer."
   pin:
     usage: "&cUtilisation: /pin set <pin>."
     correct: "&aCode correct, vous pouvez maintenant jouer."
@@ -10,5 +12,11 @@ lang:
     dont_have: "&cVous n'avez pas de pin, cela peut-être dangereux ! N'oubliez pas d'en mettre un avec /pin set"
     set: "&aVotre pin vient d'être mis à jour."
 
+#Activate this if you want to enter your pin once time per ip
+#If your ip changes you will have to put your pin back
+cache:
+  enabled: true
+
+#The permission to have access to the pin
 permission:
   pin: "pin.use"
