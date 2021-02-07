@@ -1,7 +1,7 @@
 package com.gaetan.staffpin;
 
 import com.gaetan.api.message.Message;
-import com.gaetan.api.plugin.GCore;
+import com.gaetan.api.plugin.SimplePlugin;
 import com.gaetan.staffpin.command.PinCommand;
 import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.data.PlayerData;
@@ -14,7 +14,7 @@ import java.net.InetAddress;
 import java.util.Map;
 import java.util.UUID;
 
-public final class StaffPlugin extends GCore {
+public final class StaffPlugin extends SimplePlugin {
     /**
      * Map to stock the PayerData
      */
