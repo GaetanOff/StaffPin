@@ -22,6 +22,11 @@ public final class ConfigManager {
     private boolean cacheEnabled, asyncLoad, asyncSave, asyncMove;
 
     /**
+     * Cache for the config
+     */
+    private int tickMove;
+
+    /**
      * Constructor for the ConfigManager class.
      *
      * @param staffPlugin Reference to the main class
@@ -49,9 +54,10 @@ public final class ConfigManager {
 
         this.cacheEnabled = config.getBoolean("cache.enabled");
 
-        this.asyncLoad = config.getBoolean("async.load_pin");
-        this.asyncSave = config.getBoolean("async.save_pin");
-        this.asyncMove = config.getBoolean("async.move");
+        this.asyncLoad = config.getBoolean("optimization.async_load_pin");
+        this.asyncSave = config.getBoolean("optimization.async_save_pin");
+        this.asyncMove = config.getBoolean("optimization.move.async");
+        this.tickMove = config.getInt("optimization.move.tick");
 
         this.pinPermission = config.getString("permission.pin");
         this.pinUsage = Message.tl(config.getString("lang.pin.usage"));
@@ -141,7 +147,7 @@ public final class ConfigManager {
     /**
      * Getter to get the cache status.
      *
-     * @return The the cache status.
+     * @return The cache status.
      */
     public boolean isCacheEnabled() {
         return this.cacheEnabled;
@@ -151,7 +157,7 @@ public final class ConfigManager {
     /**
      * Getter to get the async load status.
      *
-     * @return The the async load status.
+     * @return The async load status.
      */
     public boolean isAsyncLoad() {
         return this.asyncLoad;
@@ -161,19 +167,27 @@ public final class ConfigManager {
     /**
      * Getter to get the async save status.
      *
-     * @return The the async save status.
+     * @return The async save status.
      */
     public boolean isAsyncSave() {
         return this.asyncSave;
     }
 
-
     /**
      * Getter to get the async move status.
      *
-     * @return The the async move status.
+     * @return The async move status.
      */
     public boolean isAsyncMove() {
         return this.asyncMove;
+    }
+
+    /**
+     * Getter to get the tick for the runnable move.
+     *
+     * @return The tick for the runnable move.
+     */
+    public int getTickMove() {
+        return this.tickMove;
     }
 }

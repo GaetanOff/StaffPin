@@ -19,10 +19,12 @@ cache:
 
 #Activates the following operations asynchronously
 #This can really optimize the server
-async:
-  load_pin: true
-  save_pin: true
-  move: true
+optimization:
+  async_load_pin: true
+  async_save_pin: true
+  move:
+    async: true
+    tick: 40
 
 #The permission to have access to the pin
 permission:
