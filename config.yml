@@ -17,8 +17,7 @@ lang:
 cache:
   enabled: true
 
-#Activates the following operations asynchronously
-#This can really optimize the server
+#Do not touch if you don't know what are you doing
 optimization:
   async_load_pin: true
   async_save_pin: true
