@@ -28,7 +28,11 @@ public final class MoveRunnable extends BukkitRunnable {
     public MoveRunnable(final StaffPlugin staffPlugin, final ConfigManager configManager) {
         this.staffPlugin = staffPlugin;
         this.configManager = configManager;
-        this.runTaskTimerAsynchronously(this.staffPlugin, 0L, 40L);
+
+        if (configManager.isAsyncMove())
+            this.runTaskTimerAsynchronously(this.staffPlugin, 0L, 40L);
+        else
+            this.runTaskTimer(this.staffPlugin, 0L, 40L);
     }
 
     /**

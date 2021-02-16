@@ -17,6 +17,13 @@ lang:
 cache:
   enabled: true
 
+#Activates the following operations asynchronously
+#This can really optimize the server
+async:
+  load_pin: true
+  save_pin: true
+  move: true
+
 #The permission to have access to the pin
 permission:
   pin: "pin.use"

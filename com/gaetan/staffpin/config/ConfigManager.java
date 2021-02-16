@@ -19,7 +19,7 @@ public final class ConfigManager {
     /**
      * Cache for the config
      */
-    private boolean cacheEnabled;
+    private boolean cacheEnabled, asyncLoad, asyncSave, asyncMove;
 
     /**
      * Constructor for the ConfigManager class.
@@ -48,6 +48,10 @@ public final class ConfigManager {
         this.cacheLogin = prefix + Message.tl(config.getString("lang.cache_login"));
 
         this.cacheEnabled = config.getBoolean("cache.enabled");
+
+        this.asyncLoad = config.getBoolean("async.load_pin");
+        this.asyncSave = config.getBoolean("async.save_pin");
+        this.asyncMove = config.getBoolean("async.move");
 
         this.pinPermission = config.getString("permission.pin");
         this.pinUsage = Message.tl(config.getString("lang.pin.usage"));
@@ -135,11 +139,41 @@ public final class ConfigManager {
     }
 
     /**
-     * Getter to get the cache statut.
+     * Getter to get the cache status.
      *
-     * @return The the cache statut.
+     * @return The the cache status.
      */
     public boolean isCacheEnabled() {
         return this.cacheEnabled;
+    }
+
+
+    /**
+     * Getter to get the async load status.
+     *
+     * @return The the async load status.
+     */
+    public boolean isAsyncLoad() {
+        return this.asyncLoad;
+    }
+
+
+    /**
+     * Getter to get the async save status.
+     *
+     * @return The the async save status.
+     */
+    public boolean isAsyncSave() {
+        return this.asyncSave;
+    }
+
+
+    /**
+     * Getter to get the async move status.
+     *
+     * @return The the async move status.
+     */
+    public boolean isAsyncMove() {
+        return this.asyncMove;
     }
 }

@@ -74,7 +74,10 @@ public final class PlayerData {
      * Note: This is executed in async
      */
     private void save() {
-        this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
+        if (this.configManager.isAsyncSave())
+            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
+        else
+            this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
     }
 
     /**
@@ -82,7 +85,10 @@ public final class PlayerData {
      * Note: This is executed in async
      */
     public void load() {
-        this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+        if (this.configManager.isAsyncLoad())
+            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+        else
+            this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
     }
 
     /**
