@@ -44,7 +44,6 @@ public final class LoadPlayerConfig implements Runnable {
      */
     @Override
     public void run() {
-
         if (new File(this.staffPlugin.getDataFolder() + "/players", this.playerData.getPlayer().getUniqueId().toString() + ".yml").exists()) {
             this.playerData.setPin(new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString())
                     .getConfig().get("pin.string").toString());

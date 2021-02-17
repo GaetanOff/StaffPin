@@ -72,7 +72,7 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onChat(final AsyncPlayerChatEvent event) {
         final Player player = event.getPlayer();
-        final UUID uuid = event.getPlayer().getUniqueId();
+        final UUID uuid = player.getUniqueId();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
             final PlayerData playerData = this.staffPlugin.getPlayer(uuid);
@@ -96,7 +96,7 @@ public final class PlayerListener implements Listener {
     @EventHandler
     public void onCommand(final PlayerCommandPreprocessEvent event) {
         final Player player = event.getPlayer();
-        final UUID uuid = event.getPlayer().getUniqueId();
+        final UUID uuid = player.getUniqueId();
 
         if (player.hasPermission(this.configManager.getPinPermission())) {
             if (this.staffPlugin.getPlayers().containsKey(uuid) && !this.staffPlugin.getPlayer(uuid).isLogin()) {
