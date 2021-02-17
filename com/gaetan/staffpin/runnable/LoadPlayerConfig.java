@@ -46,8 +46,8 @@ public final class LoadPlayerConfig implements Runnable {
     public void run() {
 
         if (new File(this.staffPlugin.getDataFolder() + "/players", this.playerData.getPlayer().getUniqueId().toString() + ".yml").exists()) {
-            final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString());
-            this.playerData.setPin(config.getConfig().get("pin.string").toString());
+            this.playerData.setPin(new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString())
+                    .getConfig().get("pin.string").toString());
 
             TaskUtil.run(() -> Message.tell(this.playerData.getPlayer(), this.configManager.getEnterPin()));
         } else {
