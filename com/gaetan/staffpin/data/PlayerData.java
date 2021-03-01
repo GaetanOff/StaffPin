@@ -1,6 +1,7 @@
 package com.gaetan.staffpin.data;
 
 import com.gaetan.api.PlayerUtil;
+import com.gaetan.api.annotation.Asynchrone;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
@@ -73,6 +74,7 @@ public final class PlayerData {
      * Method to save the pin in a config
      * Note: This is executed in async
      */
+    @Asynchrone
     private void save() {
         if (this.configManager.isAsyncSave())
             this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
@@ -84,6 +86,7 @@ public final class PlayerData {
      * Method to load the pin from the config and cache-it
      * Note: This is executed in async
      */
+    @Asynchrone
     public void load() {
         if (this.configManager.isAsyncLoad())
             this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));

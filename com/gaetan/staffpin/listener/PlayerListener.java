@@ -1,5 +1,6 @@
 package com.gaetan.staffpin.listener;
 
+import com.gaetan.api.annotation.Asynchrone;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
@@ -69,6 +70,7 @@ public final class PlayerListener implements Listener {
      * When a player with the pin permission talk in the chat
      * Note: This is listened async so I have to resync it
      */
+    @Asynchrone
     @EventHandler
     public void onChat(final AsyncPlayerChatEvent event) {
         final Player player = event.getPlayer();

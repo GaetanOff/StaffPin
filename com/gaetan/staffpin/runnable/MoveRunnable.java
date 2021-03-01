@@ -1,5 +1,6 @@
 package com.gaetan.staffpin.runnable;
 
+import com.gaetan.api.annotation.Asynchrone;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
@@ -25,6 +26,7 @@ public final class MoveRunnable extends BukkitRunnable {
      * @param staffPlugin   Reference to the main class
      * @param configManager Reference to the ConfigManager class
      */
+    @Asynchrone
     public MoveRunnable(final StaffPlugin staffPlugin, final ConfigManager configManager) {
         this.staffPlugin = staffPlugin;
         this.configManager = configManager;
