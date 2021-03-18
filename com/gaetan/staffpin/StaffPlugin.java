@@ -15,7 +15,7 @@ import java.net.InetAddress;
 import java.util.Map;
 import java.util.UUID;
 
-@GaetanApplication(name = "StaffPin", version = "0.9", authors = "GaetanOff")
+@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "0.9", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
 public final class StaffPlugin extends SimplePlugin {
     /**
      * Map to stock the PayerData
