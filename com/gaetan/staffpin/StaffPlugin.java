@@ -1,5 +1,6 @@
 package com.gaetan.staffpin;
 
+import com.gaetan.api.annotation.GaetanApplication;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.plugin.SimplePlugin;
 import com.gaetan.staffpin.command.PinCommand;
@@ -14,6 +15,7 @@ import java.net.InetAddress;
 import java.util.Map;
 import java.util.UUID;
 
+@GaetanApplication(name = "StaffPin", version = "0.9", authors = "GaetanOff")
 public final class StaffPlugin extends SimplePlugin {
     /**
      * Map to stock the PayerData
