@@ -9,7 +9,7 @@ How it works ?
 Commandes
 ============
 
-| Commandes                       | Description                                                  | Permission                                                                                                      |
+| Commands                        | Description                                                  | Permission                                                                                                      |
 |---------------------------------|:-------------------------------------------------------------|------------------------------------------------------------------------|
 | `/pin`                          | See the plugin commands.                                     | `pin.use`
 | `/pin set <string>`             | Change your pin code.                                        | `pin.use`
