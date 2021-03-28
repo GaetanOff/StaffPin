@@ -1,18 +1,18 @@
 StaffPin plugin
 ============
-> StaffPin est un plugin spigot compatible 1.8.x - 1.16.x qui vous permet d'avoir une sécurité pour votre staff.
+> StaffPin is a 1.8.x - 1.16.x compatible spigot plugin that allows you to have security for your staff.
 
 Comment ça fonctionne ?
 ============
-> Lors de la connexion au serveur les personnes possédent la permission "pin.use" devront enregistrer leur pin avec la comande "/pin set <string>", ensuite lors de leur prochaine connexion ils devront obligatoirement envoyer ce pin dans le chat sous un délai de 20 secondes.
+> When connecting to the server, people with the "pin.use" permission must register their pin with the command "/pin set <string>", then during their next connection they must send this pin in the chat within a period of time of20 seconds.
 
 Commandes
 ============
 
 | Commandes                       | Description                                                  | Permission                                                                                                      |
-|---------------------------------|:-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `/pin`                          | Voir les commandes du plugin.                                 | `pin.use`
-| `/pin set <string>`             | Changer votre code pin.                                       | `pin.use`
+|---------------------------------|:-------------------------------------------------------------|------------------------------------------------------------------------|
+| `/pin`                          | See the plugin commands.                                     | `pin.use`
+| `/pin set <string>`             | Change your pin code.                                        | `pin.use`
 
 License
 ============
