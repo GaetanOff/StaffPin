@@ -6,10 +6,10 @@ How it works ?
 ============
 > When connecting to the server, people with the "pin.use" permission must register their pin with the command "/pin set <string>", then during their next connection they must send this pin in the chat within a period of time of20 seconds.
 
-Commandes
+Commands
 ============
 
-| Commands                        | Description                                                  | Permission                                                                                                      |
+| Command                         | Description                                                  | Permission                                                                                                      |
 |---------------------------------|:-------------------------------------------------------------|------------------------------------------------------------------------|
 | `/pin`                          | See the plugin commands.                                     | `pin.use`
 | `/pin set <string>`             | Change your pin code.                                        | `pin.use`
