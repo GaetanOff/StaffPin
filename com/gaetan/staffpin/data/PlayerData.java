@@ -18,8 +18,10 @@ package com.gaetan.staffpin.data;
 
 import com.gaetan.api.PlayerUtil;
 import com.gaetan.api.annotation.Asynchrone;
+import com.gaetan.api.annotation.MT;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
+import com.gaetan.api.thread.MultiThreading;
 import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.runnable.LoadPlayerConfig;
@@ -88,24 +90,26 @@ public final class PlayerData {
 
     /**
      * Method to save the pin in a config
-     * Note: This is executed in async
+     * Note: This is executed multi-threaded
      */
     @Asynchrone
+    @MT
     private void save() {
         if (this.configManager.isAsyncSave())
-            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
+            MultiThreading.runAsync(new SavePlayerConfig(this.staffPlugin, this));
         else
             this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
     }
 
     /**
      * Method to load the pin from the config and cache-it
-     * Note: This is executed in async
+     * Note: This is executed multi-threaded
      */
     @Asynchrone
+    @MT
     public void load() {
         if (this.configManager.isAsyncLoad())
-            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+            MultiThreading.runAsync(new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
         else
             this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
     }
