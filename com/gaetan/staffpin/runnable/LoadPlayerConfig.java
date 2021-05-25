@@ -55,8 +55,8 @@ public final class LoadPlayerConfig implements Runnable {
     }
 
     /**
-     * Loading the pin from a config
-     * Note: This must be executed in async
+     * Loading the pin from a config.
+     * Note: This must be executed in asynchronously
      */
     @Override
     public void run() {

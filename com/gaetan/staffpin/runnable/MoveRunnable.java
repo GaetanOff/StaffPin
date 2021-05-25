@@ -55,7 +55,7 @@ public final class MoveRunnable extends BukkitRunnable {
 
     /**
      * Teleport player to the waiting pin location
-     * Note: This will be executed async every 2 seconds
+     * Note: This will be executed asynchronously every 2 seconds
      */
     @Override
     public void run() {

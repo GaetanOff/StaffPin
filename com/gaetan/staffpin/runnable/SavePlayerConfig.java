@@ -44,7 +44,7 @@ public final class SavePlayerConfig implements Runnable {
 
     /**
      * Saving the pin to a config
-     * Note: This must be executed in async
+     * Note: This must be executed in asynchronously
      */
     @Override
     public void run() {

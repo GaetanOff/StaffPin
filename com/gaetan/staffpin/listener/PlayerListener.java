@@ -57,7 +57,7 @@ public final class PlayerListener implements Listener {
     }
 
     /**
-     * When a player with the pin permission join the server
+     * When a player with the pin permission join the server.
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(final PlayerJoinEvent event) {
@@ -72,7 +72,7 @@ public final class PlayerListener implements Listener {
     }
 
     /**
-     * When a player with the pin permission left the server
+     * When a player with the pin permission left the server.
      */
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
@@ -83,8 +83,8 @@ public final class PlayerListener implements Listener {
     }
 
     /**
-     * When a player with the pin permission talk in the chat
-     * Note: This is listened async so I have to resync it
+     * When a player with the pin permission talk in the chat.
+     * Note: This is listened asynchronously so I have to re-sync it
      */
     @Asynchrone
     @EventHandler
@@ -109,7 +109,7 @@ public final class PlayerListener implements Listener {
     }
 
     /**
-     * When a player with the pin permission do command in the chat
+     * When a player with the pin permission do command in the chat.
      */
     @EventHandler
     public void onCommand(final PlayerCommandPreprocessEvent event) {

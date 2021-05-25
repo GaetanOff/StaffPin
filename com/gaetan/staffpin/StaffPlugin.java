@@ -49,7 +49,7 @@ public final class StaffPlugin extends SimplePlugin {
     private ConfigManager configManager;
 
     /**
-     * Method to launch the plugin
+     * When the plugin start.
      * Note: This is the same as the classic onEnable
      */
     @Override
@@ -60,7 +60,7 @@ public final class StaffPlugin extends SimplePlugin {
     }
 
     /**
-     * This is trigger when the server finished loading
+     * When the plugin load.
      * Note: This is the same as the classic onLoad
      */
     @Override
@@ -73,7 +73,7 @@ public final class StaffPlugin extends SimplePlugin {
     }
 
     /**
-     * Method to register listener
+     * Method to register listener.
      * Note: This will be trigger after the loading of the server
      */
     @Override

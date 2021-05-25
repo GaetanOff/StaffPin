@@ -18,10 +18,8 @@ package com.gaetan.staffpin.data;
 
 import com.gaetan.api.PlayerUtil;
 import com.gaetan.api.annotation.Asynchrone;
-import com.gaetan.api.annotation.MT;
 import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
-import com.gaetan.api.thread.MultiThreading;
 import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.config.ConfigManager;
 import com.gaetan.staffpin.runnable.LoadPlayerConfig;
@@ -89,33 +87,31 @@ public final class PlayerData {
     }
 
     /**
-     * Method to save the pin in a config
-     * Note: This is executed multi-threaded
+     * Method to save the pin in a file.
+     * Note: This is executed asynchronously
      */
     @Asynchrone
-    @MT
     private void save() {
         if (this.configManager.isAsyncSave())
-            MultiThreading.runAsync(new SavePlayerConfig(this.staffPlugin, this));
+            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
         else
             this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
     }
 
     /**
-     * Method to load the pin from the config and cache-it
-     * Note: This is executed multi-threaded
+     * Method to load the pin from the config and cache-it.
+     * Note: This is executed asynchronously
      */
     @Asynchrone
-    @MT
     public void load() {
         if (this.configManager.isAsyncLoad())
-            MultiThreading.runAsync(new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
         else
             this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
     }
 
     /**
-     * Method when player join the server
+     * Method when player join the server.
      */
     public void join() {
         this.load();
@@ -144,7 +140,7 @@ public final class PlayerData {
     }
 
     /**
-     * Method when player enter the correct code in the chat
+     * Method when player enter the correct code in the chat.
      */
     public void correct() {
         Message.tell(this.player, this.configManager.getCorrectPin());
@@ -164,19 +160,17 @@ public final class PlayerData {
     }
 
     /**
-     * Method to launch the pin cooldown
+     * Method to launch the pin cooldown.
      * Note: The player have 20 seconds to enter the pin
      */
     private void pinCooldown() {
         TaskUtil.runLater(() -> {
-            if (!this.isLogin())
-                this.player.kickPlayer(this.configManager.getTimeFinish());
-
+            if (!this.isLogin()) this.player.kickPlayer(this.configManager.getTimeFinish());
         }, 400L);
     }
 
     /**
-     * Method when player left the server
+     * Method when player quit the server.
      */
     public void leave() {
         if (this.inventory != null) {
@@ -188,7 +182,7 @@ public final class PlayerData {
     }
 
     /**
-     * Method to clear player inventory
+     * Method to clear player inventory.
      * Note: This method is from my framework
      */
     public void clearInventory() {

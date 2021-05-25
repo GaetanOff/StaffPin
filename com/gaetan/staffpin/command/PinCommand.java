@@ -62,7 +62,7 @@ public final class PinCommand {
     }
 
     /**
-     * Command to set your pin.
+     * Command to set a pin.
      * Note: This can only be used by a player with the pin permission
      *
      * @param context The command argument
@@ -85,7 +85,7 @@ public final class PinCommand {
     /**
      * Method to send the help message.
      *
-     * @param player The player to send the message
+     * @param player The player who'll receive the message
      */
     private void usage(final Player player) {
         Message.tell(player, new String[]{
