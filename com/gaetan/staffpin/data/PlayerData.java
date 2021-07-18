@@ -88,7 +88,7 @@ public final class PlayerData {
 
     /**
      * Method to save the pin in a file.
-     * Note: This is executed asynchronously
+     * Note: Prefer to use asynchronously
      */
     @Asynchrone
     private void save() {
@@ -100,7 +100,7 @@ public final class PlayerData {
 
     /**
      * Method to load the pin from the config and cache-it.
-     * Note: This is executed asynchronously
+     * Note: Prefer to use asynchronously
      */
     @Asynchrone
     public void load() {
