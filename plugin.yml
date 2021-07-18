@@ -1,5 +1,5 @@
 name: StaffPin
 author: Gaetan_Off
 website: https://github.com/GaetanOff/StaffPin
-version: 0.9-SNAPSHOT
+version: 1.0-SNAPSHOT
 main: com.gaetan.staffpin.StaffPlugin
