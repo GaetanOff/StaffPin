@@ -117,7 +117,7 @@ public final class PlayerData {
         this.load();
 
         if (this.configManager.isCacheEnabled() && this.staffPlugin.getCache().containsKey(this.player.getUniqueId()) && this.staffPlugin.getCache().get(this.player.getUniqueId()).equals(this.player.getAddress().getAddress())) {
-            TaskUtil.runLater(() -> Message.tell(this.player, this.configManager.getCacheLogin()), 2L);
+            TaskUtil.runLaterAsync(() -> Message.tell(this.player, this.configManager.getCacheLogin()), 2L);
             this.login = true;
             return;
         }
