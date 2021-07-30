@@ -93,7 +93,7 @@ public final class PlayerData {
     @Asynchrone
     private void save() {
         if (this.configManager.isAsyncSave())
-            new SavePlayerConfig(this.staffPlugin, this);
+            new SavePlayerConfig(this.staffPlugin, this).run();
         else
             TaskUtil.run(new SavePlayerConfig(this.staffPlugin, this));
     }
