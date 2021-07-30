@@ -30,8 +30,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.net.InetAddress;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "1.0", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
+@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "1.1", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
 public final class StaffPlugin extends SimplePlugin {
     /**
      * Map to stock the PayerData
@@ -42,6 +44,11 @@ public final class StaffPlugin extends SimplePlugin {
      * Map to cache the ip
      */
     private final Map<UUID, InetAddress> cache = Maps.newConcurrentMap();
+
+    /**
+     * Reference to the ES Thread Pool
+     */
+    private final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     /**
      * Reference to the ConfigManager
@@ -100,6 +107,15 @@ public final class StaffPlugin extends SimplePlugin {
      */
     public Map<UUID, PlayerData> getPlayers() {
         return this.players;
+    }
+
+    /**
+     * Getter to get the reference to the ES Thread Pool.
+     *
+     * @return The reference to the ES Thread Pool.
+     */
+    public ExecutorService getThreadPool() {
+        return this.threadPool;
     }
 
     /**

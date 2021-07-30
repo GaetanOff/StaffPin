@@ -55,10 +55,19 @@ public final class PinCommand {
      */
     @Command(name = "pin", target = CommandTarget.PLAYER)
     public void handleCommand(final Context<ConsoleCommandSender> context) {
-        final Player player = (Player) context.getSender();
+        this.staffPlugin.getThreadPool().execute(() -> {
+            final Player player = (Player) context.getSender();
 
-        if (player.hasPermission(this.configManager.getPinPermission()))
-            this.usage(player);
+            if (player.hasPermission(this.configManager.getPinPermission()))
+                Message.tell(player, new String[]{
+                        "",
+                        Message.GOLD + Message.BOLD + "StaffPin" + Message.GRAY + Message.ITALIC + " (Gaetan#0099)",
+                        "",
+                        Message.YELLOW + "/pin" + Message.GRAY + " - See the plugins commands.",
+                        Message.YELLOW + "/pin set" + Message.GRAY + " - Change your pin.",
+                        ""
+                });
+        });
     }
 
     /**
@@ -69,32 +78,18 @@ public final class PinCommand {
      */
     @Command(name = "pin.set", target = CommandTarget.PLAYER)
     public void handleCommand_Set(final Context<ConsoleCommandSender> context) {
-        final Player player = (Player) context.getSender();
+        this.staffPlugin.getThreadPool().execute(() -> {
+            final Player player = (Player) context.getSender();
 
-        if (player.hasPermission(this.configManager.getPinPermission())) {
-            if (context.getArgs().length == 0) {
-                Message.tell(player, this.configManager.getPinUsage());
-                return;
+            if (player.hasPermission(this.configManager.getPinPermission())) {
+                if (context.getArgs().length == 0) {
+                    Message.tell(player, this.configManager.getPinUsage());
+                    return;
+                }
+
+                this.staffPlugin.getPlayer(player.getUniqueId()).setPin(context.getArgs()[0]);
+                Message.tell(player, this.configManager.getPinSet());
             }
-
-            this.staffPlugin.getPlayer(player.getUniqueId()).setPin(context.getArgs()[0]);
-            Message.tell(player, this.configManager.getPinSet());
-        }
-    }
-
-    /**
-     * Method to send the help message.
-     *
-     * @param player The player who'll receive the message
-     */
-    private void usage(final Player player) {
-        Message.tell(player, new String[]{
-                "",
-                Message.GOLD + Message.BOLD + "StaffPin" + Message.GRAY + Message.ITALIC + " (Gaetan#7171)",
-                "",
-                Message.YELLOW + "/pin" + Message.GRAY + " - Voir les commandes du plugin.",
-                Message.YELLOW + "/pin set" + Message.GRAY + " - Changer votre code pin.",
-                ""
         });
     }
 }

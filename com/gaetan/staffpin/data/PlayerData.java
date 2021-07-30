@@ -93,9 +93,9 @@ public final class PlayerData {
     @Asynchrone
     private void save() {
         if (this.configManager.isAsyncSave())
-            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
+            new SavePlayerConfig(this.staffPlugin, this);
         else
-            this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new SavePlayerConfig(this.staffPlugin, this));
+            TaskUtil.run(new SavePlayerConfig(this.staffPlugin, this));
     }
 
     /**
@@ -105,9 +105,9 @@ public final class PlayerData {
     @Asynchrone
     public void load() {
         if (this.configManager.isAsyncLoad())
-            this.staffPlugin.getServer().getScheduler().runTaskAsynchronously(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+            this.staffPlugin.getThreadPool().execute(new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
         else
-            this.staffPlugin.getServer().getScheduler().runTask(this.staffPlugin, new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+            TaskUtil.run(new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
     }
 
     /**
@@ -155,8 +155,10 @@ public final class PlayerData {
         this.player.removePotionEffect(PotionEffectType.BLINDNESS);
         this.setInventory(null);
 
-        if (this.configManager.isCacheEnabled())
-            this.staffPlugin.getCache().put(this.player.getUniqueId(), this.player.getAddress().getAddress());
+        this.staffPlugin.getThreadPool().execute(() -> {
+            if (this.configManager.isCacheEnabled())
+                this.staffPlugin.getCache().put(this.player.getUniqueId(), this.player.getAddress().getAddress());
+        });
     }
 
     /**
@@ -164,8 +166,8 @@ public final class PlayerData {
      * Note: The player have 20 seconds to enter the pin
      */
     private void pinCooldown() {
-        TaskUtil.runLater(() -> {
-            if (!this.isLogin()) this.player.kickPlayer(this.configManager.getTimeFinish());
+        TaskUtil.runLaterAsync(() -> {
+            if (!this.isLogin()) TaskUtil.run(() -> this.player.kickPlayer(this.configManager.getTimeFinish()));
         }, 400L);
     }
 
