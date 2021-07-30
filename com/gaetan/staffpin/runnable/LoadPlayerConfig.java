@@ -17,6 +17,7 @@
 package com.gaetan.staffpin.runnable;
 
 import com.gaetan.api.ConfigUtil;
+import com.gaetan.api.FastUUID;
 import com.gaetan.api.message.Message;
 import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.config.ConfigManager;
@@ -59,8 +60,8 @@ public final class LoadPlayerConfig implements Runnable {
      */
     @Override
     public void run() {
-        if (new File(this.staffPlugin.getDataFolder() + "/players", this.playerData.getPlayer().getUniqueId().toString() + ".yml").exists()) {
-            this.playerData.setPin(new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString())
+        if (new File(this.staffPlugin.getDataFolder() + "/players", FastUUID.toString(this.playerData.getPlayer().getUniqueId()) + ".yml").exists()) {
+            this.playerData.setPin(new ConfigUtil(this.staffPlugin, "/players", FastUUID.toString(this.playerData.getPlayer().getUniqueId()))
                     .getConfig().get("pin.string").toString());
             Message.tell(this.playerData.getPlayer(), this.configManager.getEnterPin());
         } else {

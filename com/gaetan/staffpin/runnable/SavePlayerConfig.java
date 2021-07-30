@@ -17,6 +17,7 @@
 package com.gaetan.staffpin.runnable;
 
 import com.gaetan.api.ConfigUtil;
+import com.gaetan.api.FastUUID;
 import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.data.PlayerData;
 
@@ -49,8 +50,8 @@ public final class SavePlayerConfig implements Runnable {
     @Override
     public void run() {
         if (this.playerData.getPin() != null) {
-            final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString());
-            
+            final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", FastUUID.toString(this.playerData.getPlayer().getUniqueId()));
+
             config.getConfig().set("pin.string", this.playerData.getPin());
             config.save();
         }
