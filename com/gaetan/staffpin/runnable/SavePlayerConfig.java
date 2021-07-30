@@ -50,6 +50,7 @@ public final class SavePlayerConfig implements Runnable {
     public void run() {
         if (this.playerData.getPin() != null) {
             final ConfigUtil config = new ConfigUtil(this.staffPlugin, "/players", this.playerData.getPlayer().getUniqueId().toString());
+            
             config.getConfig().set("pin.string", this.playerData.getPin());
             config.save();
         }

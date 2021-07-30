@@ -61,11 +61,10 @@ public final class MoveRunnable extends BukkitRunnable {
     public void run() {
         this.staffPlugin.getPlayers().keySet().forEach(uuid -> {
             final PlayerData playerData = this.staffPlugin.getPlayer(uuid);
+            
             if (!playerData.isLogin() && playerData.getPin() != null) {
-                TaskUtil.run(() -> {
-                    Message.tell(playerData.getPlayer(), this.configManager.getEnterPin());
-                    playerData.getPlayer().teleport(playerData.getLocation());
-                });
+                Message.tell(playerData.getPlayer(), this.configManager.getEnterPin());
+                TaskUtil.run(() -> playerData.getPlayer().teleport(playerData.getLocation()));
             }
         });
     }
