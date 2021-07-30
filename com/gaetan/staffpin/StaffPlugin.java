@@ -33,7 +33,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "1.1.1", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
+@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "1.1.2", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
 public final class StaffPlugin extends SimplePlugin {
     /**
      * Map to stock the PayerData

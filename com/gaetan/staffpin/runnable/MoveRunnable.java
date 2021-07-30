@@ -21,7 +21,6 @@ import com.gaetan.api.message.Message;
 import com.gaetan.api.runnable.TaskUtil;
 import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.config.ConfigManager;
-import com.gaetan.staffpin.data.PlayerData;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public final class MoveRunnable extends BukkitRunnable {
@@ -59,9 +58,7 @@ public final class MoveRunnable extends BukkitRunnable {
      */
     @Override
     public void run() {
-        this.staffPlugin.getPlayers().keySet().forEach(uuid -> {
-            final PlayerData playerData = this.staffPlugin.getPlayer(uuid);
-            
+        this.staffPlugin.getPlayers().values().forEach(playerData -> {
             if (!playerData.isLogin() && playerData.getPin() != null) {
                 Message.tell(playerData.getPlayer(), this.configManager.getEnterPin());
                 TaskUtil.run(() -> playerData.getPlayer().teleport(playerData.getLocation()));
