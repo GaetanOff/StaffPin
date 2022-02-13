@@ -16,7 +16,7 @@ Commands
 
 Download
 ============
-> You can download the stable version [here](https://github.com/GaetanOff/StaffPin/releases/tag/v1.1.3).
+> You can download the stable version [here](https://github.com/GaetanOff/StaffPin/releases/tag/v1.1.4).
 > And see all the versions [here](https://github.com/GaetanOff/StaffPin/releases).
 
 License
