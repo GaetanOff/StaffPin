@@ -16,6 +16,7 @@
 
 package com.gaetan.staffpin.command;
 
+import com.gaetan.api.annotation.Asynchrone;
 import com.gaetan.api.command.utils.annotation.Command;
 import com.gaetan.api.command.utils.command.Context;
 import com.gaetan.api.command.utils.target.CommandTarget;
@@ -53,6 +54,7 @@ public final class PinCommand {
      *
      * @param context The command argument
      */
+    @Asynchrone
     @Command(name = "pin", target = CommandTarget.PLAYER)
     public void handleCommand(final Context<ConsoleCommandSender> context) {
         this.staffPlugin.getThreadPool().execute(() -> {
@@ -76,6 +78,7 @@ public final class PinCommand {
      *
      * @param context The command argument
      */
+    @Asynchrone
     @Command(name = "pin.set", target = CommandTarget.PLAYER)
     public void handleCommand_Set(final Context<ConsoleCommandSender> context) {
         this.staffPlugin.getThreadPool().execute(() -> {

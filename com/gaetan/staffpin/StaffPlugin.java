@@ -32,16 +32,17 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
-@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "1.1.3", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
+@GaetanApplication(name = "StaffPin", authors = "GaetanOff", version = "1.1.4-SNAPSHOT", main = "com.gaetan.staffpin.StaffPlugin", depend = "")
 public final class StaffPlugin extends SimplePlugin {
     /**
-     * Map to stock the PayerData
+     * Map to store the PayerData reference
      */
     private final Map<UUID, PlayerData> players = Maps.newConcurrentMap();
 
     /**
-     * Map to cache the ip
+     * Map to cache the connections
      */
     private final Map<UUID, InetAddress> cache = Maps.newConcurrentMap();
 
@@ -49,6 +50,12 @@ public final class StaffPlugin extends SimplePlugin {
      * Reference to the ES Thread Pool
      */
     private final ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+    /**
+     * Reference to the ES Runnable Thread Pool
+     */
+    private final ScheduledExecutorService threadRunnablePool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
+
 
     /**
      * Reference to the ConfigManager
@@ -110,6 +117,15 @@ public final class StaffPlugin extends SimplePlugin {
     }
 
     /**
+     * Getter to get the Map of all the cache.
+     *
+     * @return The map containing all the cache
+     */
+    public Map<UUID, InetAddress> getCache() {
+        return this.cache;
+    }
+
+    /**
      * Getter to get the reference to the ES Thread Pool.
      *
      * @return The reference to the ES Thread Pool.
@@ -119,11 +135,11 @@ public final class StaffPlugin extends SimplePlugin {
     }
 
     /**
-     * Getter to get the Map of all the cache.
+     * Getter to get the reference to the ES Runnable Thread Pool.
      *
-     * @return The map containing all the cache
+     * @return The reference to the ES Runnable Thread Pool.
      */
-    public Map<UUID, InetAddress> getCache() {
-        return this.cache;
+    public ScheduledExecutorService getThreadRunnablePool() {
+        return this.threadRunnablePool;
     }
 }

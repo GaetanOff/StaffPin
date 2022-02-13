@@ -23,6 +23,8 @@ import com.gaetan.staffpin.StaffPlugin;
 import com.gaetan.staffpin.config.ConfigManager;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.concurrent.TimeUnit;
+
 public final class MoveRunnable extends BukkitRunnable {
     /**
      * Reference to the main class
@@ -47,7 +49,8 @@ public final class MoveRunnable extends BukkitRunnable {
         this.configManager = configManager;
 
         if (configManager.isAsyncMove())
-            this.runTaskTimerAsynchronously(this.staffPlugin, 0L, configManager.getTickMove());
+            this.staffPlugin.getThreadRunnablePool()
+                    .scheduleAtFixedRate(this, 0, configManager.getTickMove() / 20, TimeUnit.SECONDS);
         else
             this.runTaskTimer(this.staffPlugin, 0L, configManager.getTickMove());
     }

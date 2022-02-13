@@ -61,14 +61,16 @@ public final class PlayerListener implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(final PlayerJoinEvent event) {
-        final Player player = event.getPlayer();
+        this.staffPlugin.getThreadPool().execute(() -> {
+            final Player player = event.getPlayer();
 
-        if (player.hasPermission(this.configManager.getPinPermission())) {
-            final PlayerData playerData = new PlayerData(player, this.staffPlugin, this.configManager);
-            this.staffPlugin.getPlayers().put(player.getUniqueId(), playerData);
+            if (player.hasPermission(this.configManager.getPinPermission())) {
+                final PlayerData playerData = new PlayerData(player, this.staffPlugin, this.configManager);
+                this.staffPlugin.getPlayers().put(player.getUniqueId(), playerData);
 
-            playerData.join();
-        }
+                playerData.join();
+            }
+        });
     }
 
     /**
@@ -76,10 +78,12 @@ public final class PlayerListener implements Listener {
      */
     @EventHandler
     public void onQuit(final PlayerQuitEvent event) {
-        final UUID uuid = event.getPlayer().getUniqueId();
+        this.staffPlugin.getThreadPool().execute(() -> {
+            final UUID uuid = event.getPlayer().getUniqueId();
 
-        if (event.getPlayer().hasPermission(this.configManager.getPinPermission()) && this.staffPlugin.getPlayers().containsKey(uuid))
-            this.staffPlugin.getPlayers().remove(uuid).leave();
+            if (event.getPlayer().hasPermission(this.configManager.getPinPermission()) && this.staffPlugin.getPlayers().containsKey(uuid))
+                this.staffPlugin.getPlayers().remove(uuid).leave();
+        });
     }
 
     /**
@@ -99,7 +103,7 @@ public final class PlayerListener implements Listener {
                 event.setCancelled(true);
 
                 if (event.getMessage().equals(playerData.getPin())) {
-                    TaskUtil.run(playerData::correct);
+                    playerData.correct();
                     return;
                 }
 

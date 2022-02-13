@@ -31,6 +31,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.concurrent.TimeUnit;
+
 public final class PlayerData {
     /**
      * Reference to the main class
@@ -105,7 +107,7 @@ public final class PlayerData {
     @Asynchrone
     public void load() {
         if (this.configManager.isAsyncLoad())
-            this.staffPlugin.getThreadPool().execute(new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
+            new LoadPlayerConfig(this.staffPlugin, this, this.configManager).run();
         else
             TaskUtil.run(new LoadPlayerConfig(this.staffPlugin, this, this.configManager));
     }
@@ -113,52 +115,58 @@ public final class PlayerData {
     /**
      * Method when player join the server.
      */
+    @Asynchrone
     public void join() {
         this.load();
 
         if (this.configManager.isCacheEnabled() && this.staffPlugin.getCache().containsKey(this.player.getUniqueId()) && this.staffPlugin.getCache().get(this.player.getUniqueId()).equals(this.player.getAddress().getAddress())) {
-            TaskUtil.runLaterAsync(() -> Message.tell(this.player, this.configManager.getCacheLogin()), 2L);
+            this.staffPlugin.getThreadRunnablePool().schedule(() -> Message.tell(this.player, this.configManager.getCacheLogin()), 20, TimeUnit.MILLISECONDS);
             this.login = true;
             return;
         }
 
-        TaskUtil.runLater(() -> {
+        this.inventory = this.player.getInventory().getContents();
+        this.armor = this.player.getInventory().getArmorContents();
+        this.gameMode = this.player.getGameMode();
+        this.location = this.player.getLocation();
+        this.pinCooldown();
+
+        this.staffPlugin.getThreadRunnablePool().schedule(() -> {
             if (this.pin != null) {
-                this.inventory = this.player.getInventory().getContents();
-                this.armor = this.player.getInventory().getArmorContents();
-                this.gameMode = this.player.getGameMode();
-                this.location = this.player.getLocation();
-                this.player.setGameMode(GameMode.SPECTATOR);
-                this.player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 400, 255));
-                this.clearInventory();
-                this.pinCooldown();
+                TaskUtil.run(() -> {
+                    this.player.setGameMode(GameMode.SPECTATOR);
+                    this.player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 400, 255));
+                    this.clearInventory();
+                });
                 return;
             }
 
             this.login = true;
-        }, 2L);
+        }, 20, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Method when player enter the correct code in the chat.
      */
+    @Asynchrone
     public void correct() {
         Message.tell(this.player, this.configManager.getCorrectPin());
 
         this.setLogin(true);
-        this.clearInventory();
-        this.player.getInventory().setContents(this.getInventory());
-        this.player.getInventory().setArmorContents(this.getArmor());
-        this.player.updateInventory();
-        this.player.teleport(this.getLocation());
-        this.player.setGameMode(this.getGameMode());
-        this.player.removePotionEffect(PotionEffectType.BLINDNESS);
-        this.setInventory(null);
 
-        this.staffPlugin.getThreadPool().execute(() -> {
-            if (this.configManager.isCacheEnabled())
-                this.staffPlugin.getCache().put(this.player.getUniqueId(), this.player.getAddress().getAddress());
+        TaskUtil.run(() -> {
+            this.clearInventory();
+            this.player.getInventory().setContents(this.getInventory());
+            this.player.getInventory().setArmorContents(this.getArmor());
+            this.player.updateInventory();
+            this.player.teleport(this.getLocation());
+            this.player.setGameMode(this.getGameMode());
+            this.player.removePotionEffect(PotionEffectType.BLINDNESS);
+            this.setInventory(null);
         });
+
+        if (this.configManager.isCacheEnabled())
+            this.staffPlugin.getCache().put(this.player.getUniqueId(), this.player.getAddress().getAddress());
     }
 
     /**
@@ -166,20 +174,24 @@ public final class PlayerData {
      * Note: The player have 20 seconds to enter the pin
      */
     private void pinCooldown() {
-        TaskUtil.runLaterAsync(() -> {
-            if (!this.isLogin()) TaskUtil.run(() -> this.player.kickPlayer(this.configManager.getTimeFinish()));
-        }, 400L);
+        this.staffPlugin.getThreadRunnablePool().schedule(() -> {
+            if (!this.isLogin())
+                TaskUtil.run(() -> this.player.kickPlayer(this.configManager.getTimeFinish()));
+        }, 1, TimeUnit.MINUTES);
     }
 
     /**
      * Method when player quit the server.
      */
+    @Asynchrone
     public void leave() {
         if (this.inventory != null) {
-            this.clearInventory();
-            this.player.getInventory().setContents(this.inventory);
-            this.player.getInventory().setArmorContents(this.armor);
-            this.player.setGameMode(this.getGameMode());
+            TaskUtil.run(() -> {
+                this.clearInventory();
+                this.player.getInventory().setContents(this.inventory);
+                this.player.getInventory().setArmorContents(this.armor);
+                this.player.setGameMode(this.getGameMode());
+            });
         }
     }
 
