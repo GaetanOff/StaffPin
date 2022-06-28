@@ -1,3 +1,5 @@
+![banner](StaffPin.jpg)
+
 StaffPin plugin
 ============
 > StaffPin is a 1.8.x - 1.17.x compatible spigot plugin that allows you to have security for your staff.
